@@ -21,15 +21,15 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name = "with yo mama"))
 
 
-#if os.path.exists(os.getcwd() + "/config.json"):
-#    with open("./config.json") as f:
-#        configData = json.load(f)
-#
-#else:
-#    configTemplate = {"Token" : ""}
-#    
-#    with open(os.getcwd() + "/config.json", "w+") as f:
-#        json.dump(configTemplate, f)
+if os.path.exists(os.getcwd() + "/config.json"):
+    with open("./config.json") as f:
+        configData = json.load(f)
+
+else:
+    configTemplate = {"Token" : ""}
+    
+    with open(os.getcwd() + "/config.json", "w+") as f:
+        json.dump(configTemplate, f)
 
 
 
