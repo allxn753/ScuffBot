@@ -31,7 +31,11 @@ else:
     with open(os.getcwd() + "/config.json", "w+") as f:
         json.dump(configTemplate, f)
 
-
+reddit = praw.Reddit(client_id = "CLIENT_ID",
+                     client_secret = "CLIENT_SECRET",
+                     username = "USERNAME",
+                     password = "PASSWORD",
+                     user_agent = "USER_AGENT")
 
 
 @client.event 
@@ -49,7 +53,7 @@ async def on_command_error(ctx,error):
         await ctx.send(embed = embed)
         raise error
 
-
+        
 client.remove_command("help")
 
 @client.command()
@@ -59,6 +63,7 @@ async def help(ctx):
                           color = discord.Colour.purple())
     embed.add_field(name = "Just for fun:", value = "-------------------------", inline = False)
     embed.add_field(name = "-bruh", value = "Prints out a random gif tagged with bruh", inline = True)
+    embed.add_field(name = "-real", value = "Prints out one of the most bizzare things you'll ever see", inline = True)
     embed.add_field(name = "-8ball *\*question*\*", value = "Asks the 8ball a question", inline = True)
     embed.add_field(name = "Admin Commands:", value = "-------------------------", inline = False)
     embed.add_field(name = "-clear *\*number*\*", value = "Deletes 'x' amount of previous messages which includes the command message", inline = True)
@@ -68,6 +73,15 @@ async def help(ctx):
     embed.set_thumbnail(url = "https://i.imgur.com/jv4qYz9.jpg")
     await ctx.send(embed = embed)
 
+
+@client.command()
+async def real(ctx):
+    posts = reddit.subreddit('cursedimages').hot()
+    post_to_pick = random.randint(1, 50)
+    for i in range(0, post_to_pick):
+        post = next(x for x in posts if not x.stickied)
+
+    await ctx.send(post.url)    
 
 @client.command()
 async def info(ctx):
