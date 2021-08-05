@@ -1,4 +1,5 @@
 import os
+import praw
 import random
 import youtube_dl
 import discord
